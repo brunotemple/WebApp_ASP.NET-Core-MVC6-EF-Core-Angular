@@ -9,14 +9,14 @@ using TheWorld.ViewModels;
 using TheWorld.Services;
 using TheWorld.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
-namespace TheWorld.Controllers.Web
+namespace TheWorld.Controllers
 {
     public class AppController : Controller
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
-        private WorldContext _context;
         private IWorldRepository _repository;
         private ILogger<AppController> _logger;
 
@@ -30,10 +30,17 @@ namespace TheWorld.Controllers.Web
             _repository = repository;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
+            return View();
+        }
+        
+        [Authorize]
+        public IActionResult Trips()
+        {
             try
-            { 
+            {
                 var data = _repository.GetAllTrips();
 
                 return View(data);
@@ -44,7 +51,8 @@ namespace TheWorld.Controllers.Web
                 return Redirect("/error");
             }
         }
-        
+
+
         public IActionResult Contact()
         {
             return View();
