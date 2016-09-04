@@ -90,8 +90,8 @@ namespace TheWorld
                   
             services.AddMvc(config =>
             {
-                if (_env.IsProduction())
-                { 
+                if (_env.IsEnvironment("Production"))
+                {
                     config.Filters.Add(new RequireHttpsAttribute());
                 }
             })
@@ -119,14 +119,15 @@ namespace TheWorld
 
             if (env.IsEnvironment("Development"))
             {
+                loggerFactory.AddDebug(LogLevel.Information);
                 app.UseDeveloperExceptionPage();
-                factory.AddDebug(LogLevel.Information);
             }
             else
             {
-                factory.AddDebug(LogLevel.Error);
+                loggerFactory.AddDebug(LogLevel.Debug);
             }
 
+ 
             //app.UseDefaultFiles(); *to index.html
 
             app.UseStaticFiles();

@@ -12,7 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "MailSettings__ToAddress": "teste1234@bruno.com",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
